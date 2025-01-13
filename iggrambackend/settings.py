@@ -37,7 +37,6 @@ CLOUDINARY = {
 }
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-DEBUG=False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = [
@@ -79,14 +78,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',  # Handles security-related headers
+    'corsheaders.middleware.CorsMiddleware',         # Handles CORS (must be before CommonMiddleware)
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Manages sessions
+    'django.middleware.common.CommonMiddleware',      # Provides various common utilities
+    'django.middleware.csrf.CsrfViewMiddleware',      # Handles CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Manages authentication
+    'django.contrib.messages.middleware.MessageMiddleware',      # Handles messaging framework
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    # Adds X-Frame-Options header
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
