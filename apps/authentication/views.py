@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated ,AllowAny
 from firebase_admin import auth
 from cloudinary.uploader import upload
 import logging
+from django.middleware.csrf import get_token
 logger = logging.getLogger(__name__)
 
 
@@ -35,7 +36,8 @@ def session_check_view(request):
 
 @ensure_csrf_cookie  # Ensures that a CSRF cookie is set
 def csrf_token_view(request):
-    return JsonResponse({"detail": "CSRF cookie set"})
+    csrf_token = get_token(request)
+    return JsonResponse({'csrf_token': csrf_token})
 
 
 
