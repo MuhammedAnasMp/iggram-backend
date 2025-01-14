@@ -1,6 +1,6 @@
 from django.http import HttpResponse ,JsonResponse
 from django.contrib.auth import authenticate, login ,logout
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie,csrf_exempt
 from apps.authentication.models import UserProfile
 from apps.authentication.utility import generate_unique_username,get_bearer_token
 from rest_framework.response import Response
@@ -42,7 +42,7 @@ def csrf_token_view(request):
 
 
 
-
+@csrf_exempt
 def verifytoken(request):
     if request.method != "POST":
         return JsonResponse({'error': 'Invalid method'}, status=405)
@@ -117,3 +117,8 @@ class PublicView(APIView):
 def logout_view(request):
     logout(request)
     return JsonResponse({'message': 'Logged out successfully'}, status=200)
+    
+def post_test(request):
+    print("sample post")
+
+    return JsonResponse({'message': 'Sample post'}, status=200)

@@ -11,6 +11,7 @@ urlpatterns = [
     path('publicview', views.PublicView.as_view(), name='public view'),
     
     path('logout', views.logout_view, name='logout_view'),
+    path('post_test', views.post_test, name='post_test'), 
     
     
     
