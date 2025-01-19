@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.sessions.models import Session
 from django.utils.timezone import now
 from django.contrib.auth.models import User
-from apps.authentication.models import UserProfile
+from apps.authentication.models import UserProfile,UserProvider
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('session_key', 'user', 'expire_date')
     search_fields = ['session_key']
@@ -21,3 +21,5 @@ class SessionAdmin(admin.ModelAdmin):
 
 admin.site.register(Session, SessionAdmin)
 admin.site.register(UserProfile)
+
+admin.site.register(UserProvider) 

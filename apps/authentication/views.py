@@ -1,7 +1,7 @@
 from django.http import HttpResponse ,JsonResponse
 from django.contrib.auth import authenticate, login ,logout
 from django.views.decorators.csrf import ensure_csrf_cookie,csrf_exempt
-from apps.authentication.models import UserProfile
+from apps.authentication.models import UserProfile, UserProvider
 from apps.authentication.utility import generate_unique_username,get_bearer_token
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -70,8 +70,8 @@ def verifytoken(request):
                     user.photo = upload_result.get('secure_url')  # Save the Cloudinary URL directly
                 except Exception as e:
                     return JsonResponse({'error': f"Error uploading photo: {str(e)}"}, status=500)
+
             user.phone_number = decoded_token.get('phone_number', '')
-            user.provider = decoded_token.get('firebase', {}).get('sign_in_provider', '')
 
             # Generate a unique username
             base_username = (
@@ -87,13 +87,26 @@ def verifytoken(request):
 
             user.save()
 
+        # Add or update the provider
+        provider_name = decoded_token.get('firebase', {}).get('sign_in_provider', '')
+        provider_email = decoded_token.get('email', '')
+
+        if provider_name:
+            # Check if this provider is already linked
+            UserProvider.objects.get_or_create(
+                user=user,
+                provider_name=provider_name,
+                defaults={'provider_email': provider_email}
+            )
+
         # Log the user in and create a session
         login(request, user)
         return JsonResponse({
             'username': request.user.username,
             'email': request.user.email,
             'uid': user.firebase_uid,
-            'profile_image': user.photo, 
+            'profile_image': user.photo,
+            'linked_providers': list(user.providers.values('provider_name', 'provider_email')),
             'message': 'Login successful'
         }, status=200)
 
@@ -106,6 +119,7 @@ def verifytoken(request):
     except Exception as e:
         logger.error("Unexpected error during token verification: %s", str(e))
         return JsonResponse({'error': 'An error occurred'}, status=500)
+
 
 
 class PublicView(APIView):

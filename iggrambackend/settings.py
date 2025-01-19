@@ -33,6 +33,15 @@ DEBUG = os.environ.get("DEBUG")
 DEVELOPMENTDEBUG = os.environ.get("DEVELOPMENTDEBUG")
 
 
+DEBUG='True'
+
+
+# DEBUG='False'
+# DEVELOPMENTDEBUG='True'
+
+
+# DEBUG='False'
+# DEVELOPMENTDEBUG='False'
 
 
 # CORS, CSRF, and allowed hosts settings
@@ -41,6 +50,7 @@ if DEBUG == "True":
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:5173",  # React development server
+        "http://127.0.0.1:5173",  # React development server
     ]
     CSRF_TRUSTED_ORIGINS = [
         'http://localhost:5173',
