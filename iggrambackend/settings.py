@@ -33,15 +33,6 @@ DEBUG = os.environ.get("DEBUG")
 DEVELOPMENTDEBUG = os.environ.get("DEVELOPMENTDEBUG")
 
 
-DEBUG='True'
-
-
-# DEBUG='False'
-# DEVELOPMENTDEBUG='True'
-
-
-# DEBUG='False'
-# DEVELOPMENTDEBUG='False'
 
 
 # CORS, CSRF, and allowed hosts settings
