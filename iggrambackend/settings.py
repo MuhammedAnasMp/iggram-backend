@@ -33,8 +33,6 @@ DEBUG = os.environ.get("DEBUG")
 DEVELOPMENTDEBUG = os.environ.get("DEVELOPMENTDEBUG")
 
 
-
-
 # CORS, CSRF, and allowed hosts settings
 if DEBUG == "True":
     print('DEVELOPEMENT')
@@ -52,9 +50,12 @@ if DEBUG == "True":
 else:
     if DEVELOPMENTDEBUG == "True":
         print('PRODUCTION LOCAL')
-        ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('BACKEND_HOST', '')]
-        CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
-        CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
+        ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                         os.getenv('BACKEND_HOST', '')]
+        CORS_ALLOWED_ORIGINS = ['http://localhost:5173',
+                                'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
+        CSRF_TRUSTED_ORIGINS = ['http://localhost:5173',
+                                'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
     else:
         print("PRODUCTION")
         ALLOWED_HOSTS = [os.getenv('BACKEND_HOST', '')]
@@ -115,11 +116,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get("POSTGRES_DB_NAME"),
-            'USER': os.environ.get("POSTGRES_USER"),
-            'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-            'HOST': os.environ.get("POSTGRES_HOST"),
-            'PORT': os.environ.get("POSTGRES_PORT"),
+            'NAME': os.environ.get("MYSQL_DB_NAME"),
+            'USER': os.environ.get("MYSQL_USER"),
+            'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
+            'HOST': os.environ.get("MYSQL_HOST"),
+            'PORT': os.environ.get("MYSQL_PORT"),
         }
     }
 
@@ -184,4 +185,3 @@ CLOUDINARY = {
     'api_key': os.environ.get('CLOUDINARY_API_KEY'),
     'api_secret': os.environ.get('CLOUDINARY_API_SECRET'),
 }
-
