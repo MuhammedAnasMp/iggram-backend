@@ -42,10 +42,12 @@ if DEBUG == "True":
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:5173",  # React development server
         "http://127.0.0.1:5173",  # React development server
+        "http://192.168.43.106:5173"
     ]
     CSRF_TRUSTED_ORIGINS = [
         'http://localhost:5173',
         'http://127.0.0.1:5173',
+        "http://192.168.43.106:5173"
     ]
 else:
     if DEVELOPMENTDEBUG == "True":
@@ -112,7 +114,7 @@ if DEBUG == "True":
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': os.environ.get("POSTGRES_DB_NAME"),
             'USER': os.environ.get("POSTGRES_USER"),
             'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),

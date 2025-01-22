@@ -14,5 +14,6 @@ urlpatterns = [
     path('post_test', views.post_test, name='post_test'), 
     
     
+    path('git-pull', views.git_pull, name='git_pull')
     
 ]
