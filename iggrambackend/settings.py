@@ -32,35 +32,25 @@ SECRET_KEY = 'django-insecure-qrx0xn=$q-odldswv!7sr&c*7cl)zkmefx!7yi69w5t(+rxl^v
 DEBUG = os.environ.get("DEBUG")
 DEVELOPMENTDEBUG = os.environ.get("DEVELOPMENTDEBUG")
 
-
-# CORS, CSRF, and allowed hosts settings
+# CORS and allowed hosts settings
 if DEBUG == "True":
-    print('DEVELOPEMENT')
+    print('DEVELOPMENT')
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = [
-        "http://localhost:5173",  # React development server
-        "http://127.0.0.1:5173",  # React development server
-        "http://192.168.43.106:5173"
-    ]
-    CSRF_TRUSTED_ORIGINS = [
-        'http://localhost:5173',
-        'http://127.0.0.1:5173',
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
         "http://192.168.43.106:5173"
     ]
 else:
     if DEVELOPMENTDEBUG == "True":
         print('PRODUCTION LOCAL')
-        ALLOWED_HOSTS = ['localhost', '127.0.0.1',
-                         os.getenv('BACKEND_HOST', '')]
+        ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('BACKEND_HOST', '')]
         CORS_ALLOWED_ORIGINS = ['http://localhost:5173',
-                                'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
-        CSRF_TRUSTED_ORIGINS = ['http://localhost:5173',
                                 'http://localhost:4173', os.getenv('FRONTEND_DOMAIN', '')]
     else:
         print("PRODUCTION")
         ALLOWED_HOSTS = [os.getenv('BACKEND_HOST', '')]
         CORS_ALLOWED_ORIGINS = [os.getenv('FRONTEND_DOMAIN', '')]
-        CSRF_TRUSTED_ORIGINS = [os.getenv('FRONTEND_DOMAIN', '')]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -84,7 +74,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -137,14 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# Session and CSRF cookies
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_NAME = "csrftoken"
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'

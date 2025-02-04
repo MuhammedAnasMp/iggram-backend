@@ -1,18 +1,14 @@
 from django.urls import path
 from . import views
-
+from .views import ProtectedView
 urlpatterns = [
     path('', views.index, name='index'),
-    path('session_check_view', views.session_check_view, name='session_check'),
-    path('csrf-token/', views.csrf_token_view, name='csrf_token'),
-        
-    path('verify-token', views.verifytoken, name='verify-token'),
-    
-    path('publicview', views.PublicView.as_view(), name='public view'),
-    
-    path('logout', views.logout_view, name='logout_view'),
-    path('post_test', views.post_test, name='post_test'), 
-    
+
+
+
+    path('api/verify-firebase-token/', views.verify_firebase_token, name='verify_firebase_token'),
+
+    path('api/protected/', ProtectedView.as_view(), name='protected'),  
     
     path('git-pull', views.git_pull, name='git_pull')
     
