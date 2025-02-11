@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'cloudinary_storage',
+    'apps.instagram_accounts',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
