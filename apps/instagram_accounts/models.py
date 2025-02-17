@@ -6,12 +6,19 @@ from apps.authentication.models import UserProfile
 class InstagramAccount(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="instagram_accounts")
     username = models.CharField(max_length=255, unique=True)
+    full_name = models.CharField(max_length=255, blank=True, null=True)
+    profile_pic_url = models.URLField(blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+    biography = models.TextField(blank=True, null=True)
+    external_url = models.URLField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.IntegerField(blank=True, null=True)  # Instagram returns gender as an int (1, 2, 3)
+    is_business = models.BooleanField(default=False)
+    birthday = models.DateField(blank=True, null=True)
     auth_data = models.JSONField()  # Stores Instagrapi's load.json content
     added_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.username
 
 
 class UploadOption(models.TextChoices):

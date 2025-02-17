@@ -20,4 +20,5 @@ from django.urls import path ,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.authentication.urls')), 
+    path('instagram/', include('apps.instagram_accounts.urls')), 
 ]

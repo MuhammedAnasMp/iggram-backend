@@ -63,11 +63,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.authentication',
+    'apps.instagram_accounts',
     'rest_framework',
     'corsheaders',
     'cloudinary',
     'cloudinary_storage',
-    'apps.instagram_accounts',
     'django_celery_beat',
 ]
 

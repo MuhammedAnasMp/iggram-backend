@@ -19,5 +19,5 @@ class FirebaseAuthentication(BaseAuthentication):
             raise AuthenticationFailed("Invalid Firebase token")
 
         User = get_user_model()  # Get the custom user model
-        user, created = User.objects.get_or_create(username=uid)
+        user, created = User.objects.get_or_create(firebase_uid=uid) 
         return (user, None)
